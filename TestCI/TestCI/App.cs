@@ -9,8 +9,13 @@ namespace TestCI
 {
 	public class App : Application
 	{
-		public App ()
+        private int count = 0;
+        public App ()
 		{
+
+            Button countButton = new Button { Text = "0 clicks!", AutomationId="CountButton" };
+            countButton.Clicked += CountButton_Clicked;
+
             // The root page of your application
             MainPage = new ContentPage {
                 Content = new StackLayout {
@@ -20,19 +25,20 @@ namespace TestCI
                         new Label
                         {
                             HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms2!"
+                            Text = "Welcome to Xamarin Forms4!"
                         },
-                        new Button
-                        {
-                            Text = "Exit"                                                        
-                        }
-
+                        countButton
 					}
 				}
 			};
-		}
+        }
 
-		protected override void OnStart ()
+        private void CountButton_Clicked(object sender, EventArgs e)
+        {
+            ((sender) as Button).Text = string.Format("{0} clicks!", count++);
+        }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}
